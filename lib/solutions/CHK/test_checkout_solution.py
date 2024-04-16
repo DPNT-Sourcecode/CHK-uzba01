@@ -1,6 +1,7 @@
 from .checkout_solution import checkout
 
 def test_checkout_calculates_correct_total_prices():
+    # Test checkout returns expected calculations
     assert checkout("A") == 50
     assert checkout("B") == 30
     assert checkout("C") == 20
@@ -45,5 +46,7 @@ def test_checkout_calculates_correct_total_prices():
     assert checkout(1) == -1
     assert checkout(None) == -1
     assert checkout([]) == -1
+    assert checkout("") == -1
+
 
 
