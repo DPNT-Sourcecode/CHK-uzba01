@@ -14,6 +14,9 @@ def checkout(skus):
         ],
         "B": [{"discount_group_size": 2, "discounted_price": 45}]
     }
+
+    # ok basically we need to first check for any Es, and then for every 2 Es remove a B from B count
+    # then just do what we're already doing
    
 
     try:
@@ -24,6 +27,8 @@ def checkout(skus):
                 return -1
     except TypeError:
         return -1
+    
+    skus_to_counts["B"] = max(0, skus_to_counts["B"] - skus_to_counts["E"] // 2)
 
     total_price = 0
     for sku, sku_count in skus_to_counts.items():
@@ -44,4 +49,5 @@ def calculate_total_price(sku_count: int, price: int, discounts: Optional[List])
             total += groups * discount["discounted_price"]
     total += sku_count * price
     return total
+
 
