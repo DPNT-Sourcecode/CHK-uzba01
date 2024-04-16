@@ -25,7 +25,7 @@ def checkout(skus):
     except TypeError:
         return -1
 
-    
+    # Remove free skus from sku counts
     skus_to_counts["B"] = max(0, skus_to_counts["B"] - skus_to_counts["E"] // 2)
     skus_to_counts["F"] = max(0, skus_to_counts["F"] - skus_to_counts["F"] // 3)
 
@@ -48,3 +48,4 @@ def calculate_total_price(sku_count: int, price: int, discounts: Optional[List])
             total += groups * discount["discounted_price"]
     total += sku_count * price
     return total
+
