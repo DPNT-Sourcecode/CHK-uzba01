@@ -36,7 +36,7 @@ def checkout(skus):
     skus_to_counts = {"A": 0, "B": 0, "C": 0, "D": 0, "E": 0}
 
     skus_to_prices = {"A": 50, "B": 30, "C": 20, "D": 15, "E": 40}
-    skus_to_discounts = {"A": [(5, 200), (3, 130)], "B": [(2, 45)], "E": [(2, "B")]}
+    skus_to_discounts = {"A": [(5, 200), (3, 130)], "B": [(2, 45)]}
 
     try:
         for sku in skus:
@@ -49,22 +49,21 @@ def checkout(skus):
 
     total_price = 0
     for sku, count in skus_to_counts.items():
-        total_price += calculate_total_price(count, skus_to_prices[sku], skus_to_discounts.get(sku), skus_to_counts)
+        total_price += calculate_total_price(
+            count=count,
+            price=skus_to_prices[sku],
+            discounts=skus_to_discounts.get(sku, None)
+        )
 
     return total_price
 
 
-def calculate_total_price(count, price, discounts, skus_to_counts):
+def calculate_total_price(count: int, price: int, discounts: list):
     total = 0
     if discounts:
         for discount in sorted(discounts, reverse=True):
-            if isinstance(discount[1], int):
-                discount_group_size, discounted_group_price = discount
-                groups, count = divmod(count, discount_group_size)
-                total += groups * discounted_group_price
-            # else:
-            #     free_sku = discount[1]
-            #     skus_to_counts[free_sku] = max(0, skus_to_counts[free_sku] - count // discount[0])
-            #     breakpoint()
+            discount_group_size, discounted_group_price = discount
+            groups, count = divmod(count, discount_group_size)
+            total += groups * discounted_group_price
     total += count * price
     return total
