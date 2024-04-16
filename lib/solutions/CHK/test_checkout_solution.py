@@ -81,6 +81,3 @@ def test_checkout_calculates_correct_total_prices():
     assert checkout("qwertyuiop") == -1
     assert checkout(1) == -1
     assert checkout(None) == -1
-
-
-

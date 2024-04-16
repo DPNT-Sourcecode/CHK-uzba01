@@ -54,7 +54,7 @@ def checkout(skus):
     total_price = 0
 
     for sku, sku_count in skus_to_counts.items():
-        if sku in ["STXYZ"]:
+        if sku in "STXYZ":
             pass
         total_price += calculate_total_price(
             sku_count=sku_count,
@@ -63,10 +63,9 @@ def checkout(skus):
         )
 
     # now calculate the price for skus in STXYZ
-    s_t_x_y_z_skus = [sku for sku in skus if sku in ["STXYZ"]]
+    s_t_x_y_z_skus = [sku for sku in skus if sku in "STXYZ"]
     breakpoint()
     num_groups, remainder = divmod(len(s_t_x_y_z_skus), 3)
-    breakpoint()
     if remainder:
         skus_with_base_price = s_t_x_y_z_skus[-remainder:]
         total_price += sum(skus_to_base_prices[sku] for sku in skus_with_base_price)
@@ -84,8 +83,3 @@ def calculate_total_price(sku_count: int, price: int, discounts: Optional[List])
             total += groups * discount["discounted_price"]
     total += sku_count * price
     return total
-
-
-
-
-
