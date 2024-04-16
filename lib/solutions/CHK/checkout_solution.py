@@ -63,8 +63,10 @@ def calculate_total_price(count: int, price: int, discounts: Optional[List]):
     total = 0
     if discounts:
         for discount in sorted(discounts, reverse=True):
+            breakpoint()
             discount_group_size, discounted_group_price = discount
             groups, count = divmod(count, discount_group_size)
+            breakpoint()
             total += groups * discounted_group_price
     total += count * price
     return total
