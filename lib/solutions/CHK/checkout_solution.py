@@ -12,8 +12,6 @@ def checkout(skus):
         "S": 20, "T": 20, "U": 40, "V": 50, "W": 20, "X": 17, "Y": 20, "Z": 21
     }
 
-    # we can't treat STXYZ as one sku because we're going to lose the differences between base prices
-
     group_discount_for_s_t_x_y_z = [{"discount_group_size": 3, "discounted_price": 45}]
 
     skus_to_discounts = {
@@ -54,12 +52,26 @@ def checkout(skus):
     skus_to_counts["U"] = max(0, skus_to_counts["U"] - skus_to_counts["U"] // 4)
 
     total_price = 0
+
     for sku, sku_count in skus_to_counts.items():
+        if sku in ["STXYZ"]:
+            pass
         total_price += calculate_total_price(
             sku_count=sku_count,
             price=skus_to_base_prices[sku],
             discounts=skus_to_discounts.get(sku, None)
         )
+
+    # now calculate the price for skus in STXYZ
+    s_t_x_y_z_skus = [sku for sku in skus if sku in ["STXYZ"]]
+    breakpoint()
+    num_groups, remainder = divmod(len(s_t_x_y_z_skus), 3)
+    breakpoint()
+    if remainder:
+        skus_with_base_price = s_t_x_y_z_skus[-remainder:]
+        total_price += sum(skus_to_base_prices[sku] for sku in skus_with_base_price)
+
+    total_price += num_groups * 45
 
     return total_price
 
@@ -72,6 +84,7 @@ def calculate_total_price(sku_count: int, price: int, discounts: Optional[List])
             total += groups * discount["discounted_price"]
     total += sku_count * price
     return total
+
 
 
 
