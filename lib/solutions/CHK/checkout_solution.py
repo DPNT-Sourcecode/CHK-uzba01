@@ -31,4 +31,3 @@ def checkout(skus):
     d_total_price = len(d_sku_items) * 15
 
     return a_total_price + b_total_price + c_total_price + d_total_price
-
