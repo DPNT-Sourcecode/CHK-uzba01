@@ -67,6 +67,11 @@ def test_checkout_calculates_correct_total_prices():
     # N/B: We do need to check the interaction between "S, T, X, Y & Z" because they use the same group discount.
     assert checkout("STX") == 45
     assert checkout("XYZ") == 45
+    assert checkout("SSSZ") == 65
+    assert checkout("STXS") == 62
+    assert checkout("STXZ") == 62
+    
+
 
     ### Test illegal inputs return -1
     assert checkout("a") == -1
@@ -81,3 +86,4 @@ def test_checkout_calculates_correct_total_prices():
     assert checkout("qwertyuiop") == -1
     assert checkout(1) == -1
     assert checkout(None) == -1
+
