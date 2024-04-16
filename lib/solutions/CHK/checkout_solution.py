@@ -30,6 +30,7 @@
 #     else:
 #         return count * price
 
+from typing import Optional, List
 
 
 def checkout(skus):
@@ -58,7 +59,7 @@ def checkout(skus):
     return total_price
 
 
-def calculate_total_price(count: int, price: int, discounts: list):
+def calculate_total_price(count: int, price: int, discounts: Optional[List]):
     total = 0
     if discounts:
         for discount in sorted(discounts, reverse=True):
