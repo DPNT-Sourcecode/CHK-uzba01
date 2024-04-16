@@ -1,48 +1,18 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
-# def checkout(skus):
-#     skus_to_counts = {"A": 0, "B": 0, "C": 0, "D": 0}
-
-#     skus_to_prices = {"A": 50, "B": 30, "C": 20, "D": 15}
-#     skus_to_discounts = {"A": (3, 130), "B": (2, 45)}
-
-#     try:
-#         for sku in skus:
-#             if sku in skus_to_counts:
-#                 skus_to_counts[sku] += 1
-#             else:
-#                 return -1 # We could alternatively raise ValueError(f"Invalid SKU {sku}")
-#     except TypeError:
-#         return -1
-
-#     total_price = 0
-#     for sku, count in skus_to_counts.items():
-#         total_price += calculate_total_price(count, skus_to_prices[sku], skus_to_discounts.get(sku))
-
-#     return total_price
-
-
-# def calculate_total_price(count, price, discount):
-#     if discount:
-#         discount_group_size, discounted_group_price = discount
-#         discount_groups_count, non_discounted_items = divmod(count, discount_group_size)
-#         return discount_groups_count * discounted_group_price + non_discounted_items * price
-#     else:
-#         return count * price
-
 from typing import Optional, List
 
 
 def checkout(skus):
     skus_to_counts = {"A": 0, "B": 0, "C": 0, "D": 0, "E": 0}
 
-    skus_to_prices = {"A": 50, "B": 30, "C": 20, "D": 15, "E": 40}
+    skus_to_base_prices = {"A": 50, "B": 30, "C": 20, "D": 15, "E": 40}
     skus_to_discounts = {
         "A": [
-            {"discount_group_size": 5, "price_for_discounted_group": 200},
-            {"discount_group_size": 3, "price+for_discounted_group": 130}
+            {"discount_group_size": 5, "discounted_price": 200},
+            {"discount_group_size": 3, "discounted_price": 130}
         ],
-        "B": [{"discount_group_size": 2, "price_for_discounted_group": 45}]
+        "B": [{"discount_group_size": 2, "discounted_price": 45}]
     }
    
 
@@ -51,7 +21,7 @@ def checkout(skus):
             if sku in skus_to_counts:
                 skus_to_counts[sku] += 1
             else:
-                return -1  # TODO: We could alternatively raise ValueError(f"Invalid SKU {sku}")
+                return -1
     except TypeError:
         return -1
 
@@ -59,7 +29,7 @@ def checkout(skus):
     for sku, sku_count in skus_to_counts.items():
         total_price += calculate_total_price(
             sku_count=sku_count,
-            price=skus_to_prices[sku],
+            price=skus_to_base_prices[sku],
             discounts=skus_to_discounts.get(sku, None)
         )
 
@@ -71,6 +41,6 @@ def calculate_total_price(sku_count: int, price: int, discounts: Optional[List])
     if discounts:
         for discount in sorted(discounts, key=lambda x: x['discount_group_size'], reverse=True):
             groups, sku_count = divmod(sku_count, discount["discount_group_size"])
-            total += groups * discount["discounted_group_price"]
+            total += groups * discount["discounted_price"]
     total += sku_count * price
     return total
