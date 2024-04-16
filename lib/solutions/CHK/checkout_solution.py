@@ -62,8 +62,9 @@ def calculate_total_price(count, price, discounts, skus_to_counts):
                 discount_group_size, discounted_group_price = discount
                 groups, count = divmod(count, discount_group_size)
                 total += groups * discounted_group_price
-            else:
-                free_sku = discount[1]
-                skus_to_counts[free_sku] = max(0, skus_to_counts[free_sku] - count // discount[0])
+            # else:
+            #     free_sku = discount[1]
+            #     skus_to_counts[free_sku] = max(0, skus_to_counts[free_sku] - count // discount[0])
+            #     breakpoint()
     total += count * price
     return total
