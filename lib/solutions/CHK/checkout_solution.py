@@ -37,7 +37,14 @@ def checkout(skus):
     skus_to_counts = {"A": 0, "B": 0, "C": 0, "D": 0, "E": 0}
 
     skus_to_prices = {"A": 50, "B": 30, "C": 20, "D": 15, "E": 40}
-    skus_to_discounts = {"A": [(5, 200), (3, 130)], "B": [(2, 45)]}
+    skus_to_discounts = {
+        "A": [
+            {"discount_group_size": 5, "price_for_discounted_group": 200},
+            {"discount_group_size": 3, "price+for_discounted_group": 130}
+        ],
+        "B": [{"discount_group_size": 2, "price_for_discounted_group": 45}]
+    }
+   
 
     try:
         for sku in skus:
@@ -49,9 +56,9 @@ def checkout(skus):
         return -1
 
     total_price = 0
-    for sku, count in skus_to_counts.items():
+    for sku, sku_count in skus_to_counts.items():
         total_price += calculate_total_price(
-            count=count,
+            sku_count=sku_count,
             price=skus_to_prices[sku],
             discounts=skus_to_discounts.get(sku, None)
         )
@@ -59,14 +66,11 @@ def checkout(skus):
     return total_price
 
 
-def calculate_total_price(count: int, price: int, discounts: Optional[List]):
+def calculate_total_price(sku_count: int, price: int, discounts: Optional[List]):
     total = 0
     if discounts:
         for discount in sorted(discounts, reverse=True):
-            breakpoint()
-            discount_group_size, discounted_group_price = discount
-            groups, count = divmod(count, discount_group_size)
-            breakpoint()
-            total += groups * discounted_group_price
-    total += count * price
+            groups, sku_count = divmod(sku_count, discount["discount_group_size"])
+            total += groups * discount["discounted_group_price"]
+    total += sku_count * price
     return total
