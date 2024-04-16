@@ -39,7 +39,7 @@ def test_checkout_calculates_correct_total_prices():
     assert checkout("HHHHHHHHHH") == 80
     assert checkout("I") == 35
     assert checkout("J") == 60
-    assert checkout("K") == 80
+    assert checkout("K") == 70
     assert checkout("KK") == 120
     assert checkout("L") == 90
     assert checkout("M") == 15
@@ -52,13 +52,17 @@ def test_checkout_calculates_correct_total_prices():
     assert checkout("QQQ") == 80
     assert checkout("RRRQ") == 150
     assert checkout("R") == 50
-    assert checkout("S") == 30
+    assert checkout("S") == 20
     assert checkout("T") == 20
     assert checkout("U") == 40
     assert checkout("UUUU") == 120
     assert checkout("V") == 50
     assert checkout("VV") == 90
     assert checkout("VVV") == 130
+    assert checkout("W") == 20
+    assert checkout("X") == 17
+    assert checkout("Y") == 20
+    assert checkout("Z") == 21
 
 
 
@@ -116,3 +120,8 @@ def test_checkout_calculates_correct_total_prices():
 
 # Base prices no change
 # K 80    | 2K for 150   -> 2K for 120
+# other discounts no change
+
+
+# new discounts
+# S T X Y Z all 3 for 45
