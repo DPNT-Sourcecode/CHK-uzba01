@@ -15,17 +15,16 @@ def checkout(skus):
         "B": [{"discount_group_size": 2, "discounted_price": 45}],
     }
    
-    if skus:
-        try:
-            for sku in skus:
-                if sku in skus_to_counts:
-                    skus_to_counts[sku] += 1
-                else:
-                    return -1
-        except TypeError:
-            return -1
-    else:
+
+    try:
+        for sku in skus:
+            if sku in skus_to_counts:
+                skus_to_counts[sku] += 1
+            else:
+                return -1
+    except TypeError:
         return -1
+
     
     skus_to_counts["B"] = max(0, skus_to_counts["B"] - skus_to_counts["E"] // 2)
     skus_to_counts["F"] = max(0, skus_to_counts["F"] - skus_to_counts["F"] // 3)
@@ -49,4 +48,5 @@ def calculate_total_price(sku_count: int, price: int, discounts: Optional[List])
             total += groups * discount["discounted_price"]
     total += sku_count * price
     return total
+
 
