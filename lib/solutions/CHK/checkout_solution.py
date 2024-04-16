@@ -12,8 +12,6 @@ def checkout(skus):
         "S": 20, "T": 20, "U": 40, "V": 50, "W": 20, "X": 17, "Y": 20, "Z": 21
     }
 
-    group_discount_for_s_t_x_y_z = [{"discount_group_size": 3, "discounted_price": 45}]
-
     skus_to_discounts = {
         "A": [
             {"discount_group_size": 5, "discounted_price": 200},
@@ -31,8 +29,11 @@ def checkout(skus):
             {"discount_group_size": 3, "discounted_price": 130},
             {"discount_group_size": 2, "discounted_price": 90}
         ],
-        **{sku: group_discount_for_s_t_x_y_z for sku in "STXYZ"}
     }
+
+    if not all(sku in SKUS_TO_BASE_PRICES for sku in skus):
+        return -1
+
    
 
     try:
@@ -81,4 +82,5 @@ def calculate_total_price(sku_count: int, price: int, discounts: Optional[List])
             total += groups * discount["discounted_price"]
     total += sku_count * price
     return total
+
 
