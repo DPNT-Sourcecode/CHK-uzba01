@@ -67,4 +67,3 @@ def calculate_total_price(count, price, discounts, skus_to_counts):
                 skus_to_counts[free_sku] = max(0, skus_to_counts[free_sku] - count // discount[0])
     total += count * price
     return total
-
