@@ -29,8 +29,3 @@ def calculate_total_price(count, price, discount):
         return discount_groups_count * discounted_group_price + non_discounted_items * price
     else:
         return count * price
-
-
-
-
-
