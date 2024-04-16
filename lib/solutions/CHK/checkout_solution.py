@@ -43,7 +43,7 @@ def checkout(skus):
             if sku in skus_to_counts:
                 skus_to_counts[sku] += 1
             else:
-                return -1
+                return -1  # TODO: We could alternatively raise ValueError(f"Invalid SKU {sku}")
     except TypeError:
         return -1
 
@@ -62,8 +62,9 @@ def calculate_total_price(count, price, discounts, skus_to_counts):
                 discount_group_size, discounted_group_price = discount
                 groups, count = divmod(count, discount_group_size)
                 total += groups * discounted_group_price
-            else:  # Special offer: get other SKU for free
+            else:
                 free_sku = discount[1]
                 skus_to_counts[free_sku] = max(0, skus_to_counts[free_sku] - count // discount[0])
     total += count * price
     return total
+
