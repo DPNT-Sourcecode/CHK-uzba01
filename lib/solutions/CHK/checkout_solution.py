@@ -4,22 +4,17 @@ from typing import Optional, List
 
 
 def checkout(skus):
-    skus_to_counts = {
-        "A": 0, "B": 0, "C": 0, "D": 0, "E": 0, "F": 0, "G": 0, "H": 0, "I": 0, 
-        "J": 0, "K": 0, "L": 0, "M": 0, "N": 0, "O": 0, "P": 0, "Q": 0, "R": 0, 
-        "U": 0, "V": 0, "W": 0, "STXYZ": 0
-    }
+    skus_to_counts = {chr(i): 0 for i in range(ord('A'), ord('Z')+1)}
+
     skus_to_base_prices = {
         "A": 50, "B": 30, "C": 20, "D": 15, "E": 40, "F": 10, "G": 20, "H": 10, "I": 35, 
         "J": 60, "K": 70, "L": 90, "M": 15, "N": 40, "O": 10, "P": 50, "Q": 30, "R": 50, 
         "S": 20, "T": 20, "U": 40, "V": 50, "W": 20, "X": 17, "Y": 20, "Z": 21
     }
 
-    # lets do it differently, lets just treat STXYZ as one sku
-    # so lets have a count for just this SKU
-    # how is that going to work
+    # we can't treat STXYZ as one sku because we're going to lose the differences between base prices
 
-    # group_discount_for_s_t_x_y_z = [{"discount_group_size": 3, "discounted_price": 45}]
+    group_discount_for_s_t_x_y_z = [{"discount_group_size": 3, "discounted_price": 45}]
 
     skus_to_discounts = {
         "A": [
@@ -38,17 +33,14 @@ def checkout(skus):
             {"discount_group_size": 3, "discounted_price": 130},
             {"discount_group_size": 2, "discounted_price": 90}
         ],
-        "STXYZ": [{"discount_group_size": 3, "discounted_price": 45}]
+        **{sku: group_discount_for_s_t_x_y_z for sku in "STXYZ"}
     }
    
 
     try:
         for sku in skus:
             if sku in skus_to_counts:
-                if sku in ["STXYZ"]:
-                    skus_to_counts["STXYZ"] += 1
-                else:
-                    skus_to_counts[sku] += 1
+                skus_to_counts[sku] += 1
             else:
                 return -1
     except TypeError:
@@ -80,6 +72,7 @@ def calculate_total_price(sku_count: int, price: int, discounts: Optional[List])
             total += groups * discount["discounted_price"]
     total += sku_count * price
     return total
+
 
 
 
