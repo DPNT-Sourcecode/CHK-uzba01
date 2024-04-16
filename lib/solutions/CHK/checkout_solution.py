@@ -21,7 +21,7 @@ def checkout(skus):
             {"discount_group_size": 5, "discounted_price": 45},
             {"discount_group_size": 10, "discounted_price": 80}
         ],
-        "K": [{"discount_group_size": 2, "discounted_price": 150}],
+        "K": [{"discount_group_size": 2, "discounted_price": 120}],
         "P": [{"discount_group_size": 5, "discounted_price": 200}],
         "Q": [{"discount_group_size": 3, "discounted_price": 80}],
         "V": [
