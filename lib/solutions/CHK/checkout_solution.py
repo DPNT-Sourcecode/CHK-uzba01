@@ -7,18 +7,21 @@ def checkout(skus):
     c_skus = []
     d_skus = []
 
-    for sku in skus:
-        match sku:
-            case "A" | "a":
-                a_skus.append(sku)
-            case "B" | "b":
-                b_skus.append(sku)
-            case "C" | "c":
-                c_skus.append(sku)
-            case "D" | "d":
-                d_skus.append(sku)
-            case _:
-                pass
+    try:
+        for sku in skus:
+            match sku:
+                case "A":
+                    a_skus.append(sku)
+                case "B":
+                    b_skus.append(sku)
+                case "C":
+                    c_skus.append(sku)
+                case "D":
+                    d_skus.append(sku)
+                case _:
+                    return -1
+    except TypeError:
+        return -1
     
     a_total_price = calculate_total_price_of_discounted_skus(
         skus=a_skus,

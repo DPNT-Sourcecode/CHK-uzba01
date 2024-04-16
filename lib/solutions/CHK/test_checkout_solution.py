@@ -16,18 +16,15 @@ def test_checkout_calculates_correct_total_prices():
     assert checkout("ABCD") == 115
     assert checkout("ABCDABCD") == 215
     assert checkout("AAABCCBBDAA") == 360
-    assert checkout("a") == 50
-    assert checkout("b") == 30
-    assert checkout("c") == 20
-    assert checkout("d") == 15
-    assert checkout("aa") == 100
-    assert checkout("bb") == 45
-    assert checkout("cc") == 40
-    assert checkout("dd") == 30
-    assert checkout("aaa") == 130
-    assert checkout("bbb") == 75
-    assert checkout("ccc") == 60
-    assert checkout("ddd") == 45
-    assert checkout("abcd") == 115
-    assert checkout("abcdabcd") == 215
-    assert checkout("aaabccbbdaa") == 360
+    assert checkout("a") == -1
+    assert checkout("b") == -1
+    assert checkout("c") == -1
+    assert checkout("d") == -1
+    assert checkout("Aa") == -1
+    assert checkout("Bb") == -1
+    assert checkout("Cc") == -1
+    assert checkout("dD") == -1
+    assert checkout("aAa") == -1
+    assert checkout("qwertyuiop") == -1
+    assert checkout(1) == -1
+    assert checkout(None) == -1
