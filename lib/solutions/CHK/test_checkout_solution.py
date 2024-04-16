@@ -18,9 +18,9 @@ def test_checkout_calculates_correct_total_prices():
     assert checkout("AAABCCBBDAA") == 330
     assert checkout("E") == 40
     assert checkout("EE") == 80
-    assert checkout("AAEABCCEBBDAA") == 410
-    assert checkout("AAEABCCEBBDAAAA") == 510
-    assert checkout("AAEABCCEBBDAAAAA") == 540
+    assert checkout("AAEABCCEBBDAA") == 380
+    assert checkout("AAEABCCEBBDAAAA") == 480
+    assert checkout("AAEABCCEBBDAAAAA") == 510
     assert checkout("EEB") == 80
     assert checkout("EEEB") == 120
     assert checkout("EEEEBB") == 160
@@ -36,4 +36,5 @@ def test_checkout_calculates_correct_total_prices():
     assert checkout("qwertyuiop") == -1
     assert checkout(1) == -1
     assert checkout(None) == -1
+
 
