@@ -4,9 +4,9 @@ from typing import Optional, List
 
 
 def checkout(skus):
-    skus_to_counts = {"A": 0, "B": 0, "C": 0, "D": 0, "E": 0, "F": 0}
+    skus_to_counts = {"A": 0, "B": 0, "C": 0, "D": 0, "E": 0, "F": 0, "G": 0}
 
-    skus_to_base_prices = {"A": 50, "B": 30, "C": 20, "D": 15, "E": 40, "F": 10}
+    skus_to_base_prices = {"A": 50, "B": 30, "C": 20, "D": 15, "E": 40, "F": 10, "G": 20}
     skus_to_discounts = {
         "A": [
             {"discount_group_size": 5, "discounted_price": 200},
@@ -48,4 +48,5 @@ def calculate_total_price(sku_count: int, price: int, discounts: Optional[List])
             total += groups * discount["discounted_price"]
     total += sku_count * price
     return total
+
 
