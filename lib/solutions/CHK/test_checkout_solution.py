@@ -64,6 +64,7 @@ def test_checkout_calculates_correct_total_prices():
     assert checkout("X") == 17
     assert checkout("Y") == 20
     assert checkout("Z") == 21
+    assert checkout("STX") == 45
 
     ### Test illegal inputs return -1
     assert checkout("a") == -1
@@ -78,3 +79,4 @@ def test_checkout_calculates_correct_total_prices():
     assert checkout("qwertyuiop") == -1
     assert checkout(1) == -1
     assert checkout(None) == -1
+
