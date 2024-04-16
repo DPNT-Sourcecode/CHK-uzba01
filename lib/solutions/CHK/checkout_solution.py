@@ -18,7 +18,7 @@ def checkout(skus):
             case "D" | "d":
                 d_skus.append(sku)
             case _:
-                raise ValueError(f"Invalid SKU: {sku}")
+                pass
     
     a_total_price = calculate_total_price_of_discounted_skus(
         skus=a_skus,
@@ -49,5 +49,6 @@ def calculate_total_price_of_discounted_skus(
 ) -> int:
     discount_groups_count, non_discounted_items = divmod(len(skus), discount_group_size)
     return discount_groups_count * discounted_group_price + non_discounted_items * base_sku_price
+
 
 
