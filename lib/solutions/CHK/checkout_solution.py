@@ -10,7 +10,10 @@ def checkout(skus):
         "A": 50, "B": 30, "C": 20, "D": 15, "E": 40, "F": 10, "G": 20, "H": 10, "I": 35, 
         "J": 60, "K": 80, "L": 90, "M": 15, "N": 40, "O": 10, "P": 50, "Q": 30, "R": 50, 
         "S": 30, "T": 20, "U": 40, "V": 50, "W": 20, "X": 90, "Y": 10, "Z": 50
-    }    
+    }
+
+    group_discount_for_s_t_x_y_z = [{"discount_group_size": 3, "discounted_price": 45}]
+
     skus_to_discounts = {
         "A": [
             {"discount_group_size": 5, "discounted_price": 200},
@@ -27,7 +30,12 @@ def checkout(skus):
         "V": [
             {"discount_group_size": 3, "discounted_price": 130},
             {"discount_group_size": 2, "discounted_price": 90}
-        ]
+        ],
+        "S": group_discount_for_s_t_x_y_z,
+        "T": group_discount_for_s_t_x_y_z,
+        "X": group_discount_for_s_t_x_y_z,
+        "Y": group_discount_for_s_t_x_y_z,
+        "Z": group_discount_for_s_t_x_y_z
 
     }
    
@@ -67,3 +75,4 @@ def calculate_total_price(sku_count: int, price: int, discounts: Optional[List])
             total += groups * discount["discounted_price"]
     total += sku_count * price
     return total
+
