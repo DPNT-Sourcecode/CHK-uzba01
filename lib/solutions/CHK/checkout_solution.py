@@ -30,10 +30,6 @@ def checkout(skus):
             {"discount_group_size": 2, "discounted_price": 90}
         ],
     }
-
-    if not all(sku in SKUS_TO_BASE_PRICES for sku in skus):
-        return -1
-
    
 
     try:
@@ -63,6 +59,8 @@ def checkout(skus):
             )
 
     # now calculate the price for skus in STXYZ
+    # TODO: Tidy up this hack,
+    # ideally we should be able to handle STXYZ skus within calculate_total_price.
     s_t_x_y_z_skus = [sku for sku in skus if sku in "STXYZ"]
     num_groups, remainder = divmod(len(s_t_x_y_z_skus), 3)
     if remainder:
@@ -82,3 +80,4 @@ def calculate_total_price(sku_count: int, price: int, discounts: Optional[List])
             total += groups * discount["discounted_price"]
     total += sku_count * price
     return total
+
