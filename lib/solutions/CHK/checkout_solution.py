@@ -20,17 +20,33 @@ def checkout(skus):
             case _:
                 raise ValueError(f"Invalid SKU: {sku}")
     
-    discount_groups_count, non_discounted_items = divmod(len(a_skus), 3)
-    a_total_price = discount_groups_count * 130 + non_discounted_items * 50
+    a_total_price = calculate_total_price_of_discounted_skus(
+        skus=a_skus,
+        discount_group_size=3,
+        discounted_group_price=130,
+        base_sku_price=50
+    )
 
-    discount_groups_count, non_discounted_items = divmod(len(b_skus), 2)
-    b_total_price = discount_groups_count * 45 + non_discounted_items * 30
+    b_total_price = calculate_total_price_of_discounted_skus(
+        skus=b_skus,
+        discount_group_size=2,
+        discounted_group_price=45,
+        base_sku_price=30
+    )
 
     c_total_price = len(c_skus) * 20
 
     d_total_price = len(d_skus) * 15
 
-    return a_total_price + b_total_price + c_total_price + d_total_price
+    return sum([a_total_price, b_total_price, c_total_price, d_total_price])
 
 
-def calculate_total_price_of_discounted_skus(skus)
+def calculate_total_price_of_discounted_skus(
+    skus: list,
+    discount_group_size: int,
+    discounted_group_price: int,
+    base_sku_price,
+) -> int:
+    discount_groups_count, non_discounted_items = divmod(len(skus), discount_group_size)
+    return discount_groups_count * discounted_group_price + non_discounted_items * base_sku_price
+
