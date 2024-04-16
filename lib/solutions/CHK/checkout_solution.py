@@ -69,7 +69,7 @@ def checkout(skus):
 def calculate_total_price(sku_count: int, price: int, discounts: Optional[List]):
     total = 0
     if discounts:
-        for discount in sorted(discounts, reverse=True):
+        for discount in sorted(discounts, key=lambda x: x['discount_group_size'], reverse=True):
             groups, sku_count = divmod(sku_count, discount["discount_group_size"])
             total += groups * discount["discounted_group_price"]
     total += sku_count * price
